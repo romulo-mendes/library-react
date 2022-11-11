@@ -1,10 +1,17 @@
 import React from "react";
-import { ReactComponent as Logo } from "../../assets/login/Logo.svg";
+import { Route, Routes } from "react-router-dom";
+import LoginForm from "./LoginForm";
+import LostPassword from "./LostPassword";
 
 const Login = () => {
 	return (
 		<div>
-			<Logo />
+			<div>
+				<Routes>
+					<Route path="/" element={<LoginForm />} />
+					<Route path="lostpassword" element={<LostPassword />} />
+				</Routes>
+			</div>
 		</div>
 	);
 };
