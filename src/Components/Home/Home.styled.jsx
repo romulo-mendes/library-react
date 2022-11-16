@@ -5,5 +5,6 @@ export const HomeContainer = styled.section`
 	background-color: #fff;
 	padding: 200px;
 	display: flex;
+	justify-content: center;
 	gap: 40px;
 `;

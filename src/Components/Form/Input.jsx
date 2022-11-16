@@ -10,10 +10,11 @@ const Input = ({
 	error,
 	onBlur,
 	placeholder,
+	forstyle,
 	...props
 }) => {
 	return (
-		<DivInput type="login">
+		<DivInput type={forstyle}>
 			<label htmlFor={name}>{label}</label>
 			<input
 				type={type}
@@ -23,6 +24,7 @@ const Input = ({
 				onChange={onChange}
 				value={value}
 				onBlur={onBlur}
+				forstyle={forstyle}
 			/>
 		</DivInput>
 	);

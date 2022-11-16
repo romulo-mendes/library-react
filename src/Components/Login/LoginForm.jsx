@@ -47,6 +47,7 @@ const LoginForm = () => {
 					id="email"
 					name="email"
 					placeholder="E-mail"
+					forstyle="login"
 					{...email}
 				/>
 				<Input
@@ -54,6 +55,7 @@ const LoginForm = () => {
 					id="password"
 					name="password"
 					placeholder="Senha"
+					forstyle="login"
 					{...password}
 				/>
 				<DivLoginProps marginBottom="32" textAlign="flex-start">

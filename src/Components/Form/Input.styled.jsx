@@ -19,4 +19,33 @@ export const DivInput = styled.div`
 				font-weight: bold;
 			}
 		`}
+	${(props) =>
+		props.type === "books" &&
+		`
+		input{
+			width: 350px;
+			padding: 16px;
+			font-size: 16px;
+			::placeholder {
+				color: #123052;
+			}
+			border-radius: 5px;
+			border: 1px solid #123052;
+		}
+		`}
+		${(props) =>
+		props.type === "search" &&
+		`
+			input {
+				width: 100%;
+				padding: 16px;
+				font-size: 16px;
+				::placeholder {
+					color: #adb5db;
+					font-style: italic;
+				}
+				border: 0;
+				outline: 0;
+			}
+		`}
 `;

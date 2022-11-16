@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 import LostPassword from "./LostPassword";
 
 const Login = () => {
+	console.log();
 	return (
 		<div>
 			<div>

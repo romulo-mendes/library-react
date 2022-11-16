@@ -3,18 +3,23 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import "./App.css";
 import Home from "./Components/Home/Home";
-import Main from "./Components/Main/Main";
+import NewBook from "./Components/Cadastro/NewBook";
+import NotFound from "./Components/Helper/NotFound";
+import Library from "./Components/Library/Library";
+
+const Routers = () => {};
 
 function App() {
 	return (
-		<div>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/*" element={<Login />} />
-					<Route path="/home/*" element={<Main />} />
-				</Routes>
-			</BrowserRouter>
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Login />} />
+				<Route path="home" element={<Home />} />
+				<Route path="cadastro" element={<NewBook />} />
+				<Route path="biblioteca" element={<Library />} />
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
