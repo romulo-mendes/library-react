@@ -16,6 +16,7 @@ const LogoutBox = styled.div`
 	top: 26px;
 	right: 0;
 	transition: 0.3s;
+	z-index: 2;
 	p {
 		font-family: "Poppins", sans-serif !important;
 	}

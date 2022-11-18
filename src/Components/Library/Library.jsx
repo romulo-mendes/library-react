@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Back from "../Main/Back";
 import LibrarySearch from "./LibrarySearch";
 import LibraryBooks from "./LibraryBooks";
+import BooksProvider from "../../Contexts/useBooks";
 
 const LibraryContainer = styled.div`
 	background-color: #fff;
@@ -13,18 +14,19 @@ const LibraryContainer = styled.div`
 	display: flex;
 	position: relative;
 	align-items: center;
-	height: calc(100vh - 144px);
 	flex-direction: column;
 `;
 
 const Library = () => {
 	return (
-		<MainContainer>
+		<MainContainer style={{ height: "100vh", overflowX: "hidden" }}>
 			<Nav />
 			<LibraryContainer>
 				<Back link="/home" back="Home" current="Biblioteca" />
-				<LibrarySearch />
-				<LibraryBooks />
+				<BooksProvider>
+					<LibrarySearch />
+					<LibraryBooks />
+				</BooksProvider>
 			</LibraryContainer>
 		</MainContainer>
 	);

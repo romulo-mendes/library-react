@@ -11,7 +11,6 @@ const Input = ({
 	onBlur,
 	placeholder,
 	forstyle,
-	...props
 }) => {
 	return (
 		<DivInput type={forstyle}>

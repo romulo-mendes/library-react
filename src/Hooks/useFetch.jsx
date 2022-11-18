@@ -16,7 +16,6 @@ const useFetch = () => {
 			json = null;
 		} finally {
 			setData(json);
-			console.log(data);
 			setLoading(false);
 		}
 	}, []);

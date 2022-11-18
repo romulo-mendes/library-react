@@ -85,7 +85,6 @@ const BookForm = () => {
 			synopsis: synopsis.value,
 			rentHistory: [],
 		};
-		console.log(books);
 		const postBooks = async () => {
 			const response = await fetch("http://192.168.1.65:3000/books", {
 				method: "POST",
@@ -95,7 +94,6 @@ const BookForm = () => {
 				body: JSON.stringify(books),
 			});
 			const json = await response.json();
-			console.log(json);
 		};
 		postBooks().catch(console.error);
 		BackToHome();

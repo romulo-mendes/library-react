@@ -1,30 +1,43 @@
 import React from "react";
 import LibraryCard from "./LibraryCard";
+import styled from "styled-components";
+import { useBooks } from "../../Contexts/useBooks";
+import ModalBook from "./ModalBook";
+
+const CardsContainer = styled.div`
+	display: flex;
+	gap: 40px;
+	flex-wrap: wrap;
+	justify-content: center;
+	min-height: 45vh;
+`;
 
 const LibraryBooks = () => {
-	const [books, setBooks] = React.useState([{}]);
+	const { filteredBooks } = useBooks();
+	const [modal, setModal] = React.useState(false);
+	const [bookIndex, setBookIndex] = React.useState("");
 
-	React.useEffect(() => {
-		const getUsers = async () => {
-			const response = await fetch("http://192.168.1.65:3000/books", {
-				method: "GET",
-			});
-			const json = await response.json();
-			setBooks(json);
-			console.log(json);
-		};
-		getUsers().catch(console.error);
-	}, []);
+	function Modal(e) {
+		setBookIndex(e.currentTarget.id);
+		setModal(true);
+		console.log(bookIndex);
+	}
+
 	return (
-		<div>
-			{
-				<LibraryCard
-					id={books[0].tittle}
-					tittle={books[0].tittle}
-					img={books[0].image}
-				/>
-			}
-		</div>
+		<CardsContainer>
+			{modal && <ModalBook bookIndex={bookIndex} setModal={setModal} />}
+			{filteredBooks.map((book, index) => {
+				return (
+					<LibraryCard
+						key={book.id ? book.id : index}
+						img={book.image}
+						id={book.id ? book.id : index}
+						tittle={book.tittle}
+						onClick={Modal}
+					/>
+				);
+			})}
+		</CardsContainer>
 	);
 };
 

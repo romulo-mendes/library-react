@@ -1,8 +1,12 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import Input from "../Form/Input";
 import { ReactComponent as Search } from "../../assets/Search.svg";
 import styled from "styled-components";
 import useForm from "../../Hooks/useForm";
+import { useBooks } from "../../Contexts/useBooks";
+import Select from "../Form/Select";
+
+export const SearchContext = createContext();
 
 const ButtonStyled = styled.button`
 	border-radius: ${(props) => props.borderRadius || "5px"};
@@ -18,6 +22,7 @@ const ButtonStyled = styled.button`
 const SearchContainer = styled.div`
 	display: flex;
 	gap: 32px;
+	margin: 98px 0 76px 0;
 `;
 
 const SearchStyled = styled.form`
@@ -37,8 +42,15 @@ const SearchStyled = styled.form`
 `;
 
 const LibrarySearch = () => {
-	const search = useForm();
+	const { search, setSearch } = useBooks();
+	const { category, setCategory } = useBooks();
 
+	const options = [
+		{ text: "Titulo", value: "tittle" },
+		{ text: "Gênero", value: "genre" },
+		{ text: "Autor", value: "author" },
+		{ text: "Data de entrada", value: "systemEntryDate" },
+	];
 	return (
 		<SearchContainer>
 			<SearchStyled
@@ -53,22 +65,19 @@ const LibrarySearch = () => {
 						name="search"
 						placeholder="Pesquisar livro..."
 						forstyle="search"
-						{...search}
+						value={search}
+						onChange={(e) => setSearch(e.target.value)}
 					/>
 				</div>
 				<ButtonStyled height="37px" padding="8px 16px" width="82px">
 					Buscar
 				</ButtonStyled>
 			</SearchStyled>
-			<select defaultValue={""}>
-				<option value="" disabled>
-					Selecione
-				</option>
-				<option value="tittle">Titulo</option>
-				<option value="genre">Gênero</option>
-				<option value="author">Autor</option>
-				<option value="entryDate">Data de entrada</option>
-			</select>
+			<Select
+				options={options}
+				value={category}
+				onChange={(e) => setCategory(e.target.value)}
+			/>
 		</SearchContainer>
 	);
 };
