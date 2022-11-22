@@ -15,23 +15,30 @@ const CardsContainer = styled.div`
 const LibraryBooks = () => {
 	const { filteredBooks } = useBooks();
 	const [modal, setModal] = React.useState(false);
-	const [bookIndex, setBookIndex] = React.useState("");
+	const [bookId, setBookId] = React.useState("");
+
+	const goToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+		console.log("top!");
+	};
 
 	function Modal(e) {
-		setBookIndex(e.currentTarget.id);
+		setBookId(e.currentTarget.id);
 		setModal(true);
-		console.log(bookIndex);
 	}
 
 	return (
 		<CardsContainer>
-			{modal && <ModalBook bookIndex={bookIndex} setModal={setModal} />}
-			{filteredBooks.map((book, index) => {
+			{modal && <ModalBook bookId={bookId} setModal={setModal} />}
+			{filteredBooks.map((book) => {
 				return (
 					<LibraryCard
-						key={book.id ? book.id : index}
+						key={book.id}
 						img={book.image}
-						id={book.id ? book.id : index}
+						id={book.id}
 						tittle={book.tittle}
 						onClick={Modal}
 					/>

@@ -19,14 +19,13 @@ const useForm = () => {
 		setValue(target.value);
 	}
 
-	return{
-        value,
-        setValue,
-        onChange,
-        error,
-        validate:()=>validade(value),
-        onBlur: ()=> validate(value),
-    }
+	return {
+		value,
+		setValue,
+		onChange,
+		error,
+		validate: () => validate(value),
+	};
 };
 
 export default useForm;

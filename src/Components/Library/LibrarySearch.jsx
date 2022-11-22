@@ -1,23 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
 import Input from "../Form/Input";
 import { ReactComponent as Search } from "../../assets/Search.svg";
 import styled from "styled-components";
-import useForm from "../../Hooks/useForm";
 import { useBooks } from "../../Contexts/useBooks";
 import Select from "../Form/Select";
+import { ButtonStyled } from "../Form/Button.styled";
 
 export const SearchContext = createContext();
-
-const ButtonStyled = styled.button`
-	border-radius: ${(props) => props.borderRadius || "5px"};
-	height: ${(props) => props.height || "53px"};
-	width: ${(props) => props.width || "auto"};
-	background-color: ${(props) => props.background || "#FFC501"};
-	border: ${(props) => props.border || "0"};
-	padding: ${(props) => props.padding || "16px 24px"};
-	font-weight: ${(props) => props.fontWeight || "400"};
-	color: ${(props) => props.color || "600"};
-`;
 
 const SearchContainer = styled.div`
 	display: flex;

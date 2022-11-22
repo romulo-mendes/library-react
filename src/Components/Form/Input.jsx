@@ -11,6 +11,7 @@ const Input = ({
 	onBlur,
 	placeholder,
 	forstyle,
+	onFocus,
 }) => {
 	return (
 		<DivInput type={forstyle}>
@@ -18,12 +19,13 @@ const Input = ({
 			<input
 				type={type}
 				name={name}
-				placeholder={error ? `${error} com o ${name}` : placeholder}
+				placeholder={placeholder}
 				id={name}
 				onChange={onChange}
 				value={value}
 				onBlur={onBlur}
 				forstyle={forstyle}
+				onFocus={onFocus}
 			/>
 		</DivInput>
 	);

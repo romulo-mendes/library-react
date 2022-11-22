@@ -148,10 +148,14 @@ const BookForm = () => {
 					<option value="Romance">Romance</option>
 				</Select>
 				<Input
-					type="date"
+					type="text"
 					name="entryDate"
 					placeholder="Data de entrada"
 					forstyle="books"
+					onFocus={(e) => (e.target.type = "date")}
+					onBlur={({ target }) => {
+						if (!target.value) target.type = "text";
+					}}
 					{...entryDate}
 				/>
 			</InputContainer>

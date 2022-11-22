@@ -1,6 +1,29 @@
 import styled from "styled-components";
 
 export const DivInput = styled.div`
+	input {
+		padding: 16px;
+		font-size: 16px;
+		border-radius: 5px;
+	}
+
+	${(props) =>
+		props.type === "lent" &&
+		`
+			input {
+				width: 350px;
+				height: 53px;
+				border: 1px solid #133052;
+				color: #3e4756;
+				outline: 0;
+				:focus {
+					border: 2px solid #3e4756;
+				}
+				::placeholder {
+					color: #133052;
+				}
+			}
+		`}
 	${(props) =>
 		props.type === "login" &&
 		`
@@ -10,7 +33,6 @@ export const DivInput = styled.div`
 				height: 51px;
 				margin-bottom: 16px;
 				background-color: #f1f3f5;
-				border-radius: 4px;
 				border: none;
 			}
 			p {
@@ -24,12 +46,9 @@ export const DivInput = styled.div`
 		`
 		input{
 			width: 350px;
-			padding: 16px;
-			font-size: 16px;
 			::placeholder {
 				color: #123052;
 			}
-			border-radius: 5px;
 			border: 1px solid #123052;
 		}
 		`}
@@ -38,8 +57,6 @@ export const DivInput = styled.div`
 		`
 			input {
 				width: 100%;
-				padding: 16px;
-				font-size: 16px;
 				::placeholder {
 					color: #adb5db;
 					font-style: italic;
