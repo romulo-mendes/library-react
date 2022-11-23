@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ButtonStyled } from "../Form/Button.styled";
 import { ReactComponent as Book } from "../../assets/modal/Book.svg";
 import { ReactComponent as Close } from "../../assets/modal/Close.svg";
-import { CloseModalIcon } from "./ModalBook.styled";
+import { CloseModalIcon, RentHistory } from "./ModalBook.styled";
 import LentModal from "./LentModal";
+import RentHistoryModal from "./RentHistoryModal";
 
 const ModalContainer = styled.div`
 	width: 100vw;
@@ -27,7 +28,7 @@ const ModalBookMain = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: 60px;
 	position: relative;
 `;
 
@@ -80,28 +81,28 @@ const ButtonsContainer = styled.div`
 
 const ModalBook = ({ bookId, setModal }) => {
 	const [book, setBook] = React.useState([]);
-	const [MainModal, setMainModal] = React.useState(true);
+	const [mainModal, setMainModal] = React.useState(true);
 	const [lentModal, setLentModal] = React.useState(false);
-	const [rentHistory, setRentHistory] = React.useState(false);
+	const [rentHistory, setRentHistory] = React.useState();
 	const [lastRent, setLastRent] = React.useState([]);
+	const [historyModal, setHistoryModal] = React.useState(false);
+
+	const getBooks = async () => {
+		const response = await fetch(`http://192.168.1.65:3000/books/${bookId}`);
+		const json = await response.json();
+		setBook(json);
+		if (json.rentHistory.length > 0) {
+			isLent(json.rentHistory);
+			let rentHistory = json.rentHistory;
+			setLastRent(rentHistory[rentHistory.length - 1]);
+		}
+	};
 
 	React.useEffect(() => {
-		const getBooks = async () => {
-			const response = await fetch(`http://192.168.1.65:3000/books/${bookId}`, {
-				method: "GET",
-			});
-			const json = await response.json();
-			setBook(json);
-			if (json.rentHistory.length > 0) {
-				IsLent(json.rentHistory);
-				let rentHistory = json.rentHistory;
-				setLastRent(rentHistory[rentHistory.length - 1]);
-			}
-		};
 		getBooks().catch(console.error);
-	}, []);
+	}, [mainModal]);
 
-	function IsLent(lent) {
+	function isLent(lent) {
 		let lastRentDate = lent[lent.length - 1].deliveryDate;
 		const lentDate = new Date(lastRentDate.split("/").reverse().join("-"));
 		if (lentDate > new Date()) {
@@ -111,20 +112,25 @@ const ModalBook = ({ bookId, setModal }) => {
 		}
 	}
 
-	function CheckCloseModal(e) {
-		e.target === e.currentTarget && CloseModal();
+	function checkCloseModal(e) {
+		e.target === e.currentTarget && closeModal();
 	}
 
-	function CloseModal() {
+	function closeModal() {
 		setModal(false);
 	}
 
-	function LentBook() {
+	function lentBook() {
 		setMainModal(false);
 		setLentModal(true);
 	}
 
-	async function ReturnBook() {
+	function rentHistoryModal() {
+		setHistoryModal(true);
+		setMainModal(false);
+	}
+
+	async function returnBook() {
 		let currentDate = new Date();
 		book.rentHistory[book.rentHistory.length - 1].deliveryDate =
 			currentDate.toLocaleDateString();
@@ -135,13 +141,14 @@ const ModalBook = ({ bookId, setModal }) => {
 			},
 			body: JSON.stringify(book),
 		});
+		getBooks();
 	}
 
 	return (
-		<ModalContainer onClick={CheckCloseModal}>
-			{MainModal && (
+		<ModalContainer onClick={checkCloseModal}>
+			{mainModal && (
 				<ModalBookMain>
-					<CloseModalIcon onClick={CloseModal}>
+					<CloseModalIcon onClick={closeModal}>
 						<Close />
 					</CloseModalIcon>
 					<ModalBookInfo>
@@ -154,7 +161,7 @@ const ModalBook = ({ bookId, setModal }) => {
 									width="100%"
 									border="1px solid #adb5bd"
 									background="#f4f4f4"
-									onClick={ReturnBook}
+									onClick={returnBook}
 								>
 									<Book />
 									Devolver
@@ -165,7 +172,7 @@ const ModalBook = ({ bookId, setModal }) => {
 									fontWeight="600"
 									width="100%"
 									border="1px solid #adb5bd"
-									onClick={LentBook}
+									onClick={lentBook}
 								>
 									<Book />
 									Emprestar
@@ -173,6 +180,7 @@ const ModalBook = ({ bookId, setModal }) => {
 							)}
 						</ImgContainer>
 						<InfoContainer>
+							<button autoFocus style={{ border: "0" }}></button>
 							<h2>{book.tittle}</h2>
 							<div>
 								<h4>Sinopse</h4>
@@ -203,6 +211,7 @@ const ModalBook = ({ bookId, setModal }) => {
 									background="#FFF"
 									border="1px solid #ADb5BD"
 									color="#000000"
+									onClick={rentHistoryModal}
 								>
 									Histórico
 								</ButtonStyled>
@@ -210,29 +219,27 @@ const ModalBook = ({ bookId, setModal }) => {
 						</InfoContainer>
 					</ModalBookInfo>
 					{rentHistory && (
-						<div>
+						<RentHistory>
 							<h2>Dados do aluno</h2>
-							<div>
-								<table>
-									<thead>
-										<tr>
-											<td>Nome do aluno</td>
-											<td>Turma</td>
-											<td>Data de retirada</td>
-											<td>data da entrega</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>{lastRent.studentName}</td>
-											<td>{lastRent.class}</td>
-											<td>{lastRent.withdrawalDate}</td>
-											<td>{lastRent.deliveryDate}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
+							<table>
+								<thead>
+									<tr>
+										<td>Nome do aluno</td>
+										<td>Turma</td>
+										<td>Data de retirada</td>
+										<td>Data da entrega</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{lastRent.studentName}</td>
+										<td>{lastRent.class}</td>
+										<td>{lastRent.withdrawalDate}</td>
+										<td>{lastRent.deliveryDate}</td>
+									</tr>
+								</tbody>
+							</table>
+						</RentHistory>
 					)}
 				</ModalBookMain>
 			)}
@@ -244,6 +251,7 @@ const ModalBook = ({ bookId, setModal }) => {
 					setMainModal={setMainModal}
 				/>
 			)}
+			{historyModal && <RentHistoryModal />}
 		</ModalContainer>
 	);
 };

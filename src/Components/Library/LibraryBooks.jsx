@@ -28,6 +28,7 @@ const LibraryBooks = () => {
 	function Modal(e) {
 		setBookId(e.currentTarget.id);
 		setModal(true);
+		goToTop();
 	}
 
 	return (

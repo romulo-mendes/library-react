@@ -34,7 +34,8 @@ const LentForm = styled.form`
 	margin-bottom: 40px;
 `;
 
-const LentModal = ({ setLentModal, bookId, setMainModal, book }) => {
+const LentModal = (props) => {
+	const { setLentModal, bookId, setMainModal, book } = props;
 	const studentName = useForm();
 	const studentClass = useForm();
 	const withdrawalDate = useForm();
