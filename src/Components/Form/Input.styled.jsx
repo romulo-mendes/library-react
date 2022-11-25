@@ -8,6 +8,17 @@ export const DivInput = styled.div`
 	}
 
 	${(props) =>
+		props.type === "table" &&
+		`
+			input {
+				border: 0;
+				outline: 0;
+				width: 100%;
+				height: 100%;
+			}
+		`}
+
+	${(props) =>
 		props.type === "lent" &&
 		`
 			input {

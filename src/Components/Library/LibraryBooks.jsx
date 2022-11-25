@@ -22,7 +22,6 @@ const LibraryBooks = () => {
 			top: 0,
 			behavior: "smooth",
 		});
-		console.log("top!");
 	};
 
 	function Modal(e) {

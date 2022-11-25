@@ -251,7 +251,7 @@ const ModalBook = ({ bookId, setModal }) => {
 					setMainModal={setMainModal}
 				/>
 			)}
-			{historyModal && <RentHistoryModal />}
+			{historyModal && <RentHistoryModal setMainModal={setMainModal} setHistoryModal={setHistoryModal} rentHistory={book.rentHistory} />}
 		</ModalContainer>
 	);
 };

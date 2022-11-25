@@ -3,7 +3,6 @@ import { ButtonStyled } from "../Form/Button.styled";
 import Input from "../Form/Input";
 import { CloseModalIcon } from "./ModalBook.styled";
 import { ReactComponent as Close } from "../../assets/modal/Close.svg";
-import { useBooks } from "../../Contexts/useBooks";
 import { ReactComponent as Book } from "../../assets/modal/Book.svg";
 import styled from "styled-components";
 import useForm from "../../Hooks/useForm";
@@ -68,8 +67,6 @@ const LentModal = (props) => {
 			book.rentHistory.push(rentHistory);
 			postBooks(book);
 			CloseModal();
-		} else {
-			console.log("não entrou no if");
 		}
 	}
 	function CloseModal() {

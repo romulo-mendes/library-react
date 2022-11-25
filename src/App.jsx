@@ -3,20 +3,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import "./App.css";
 import Home from "./Components/Home/Home";
-import NewBook from "./Components/Cadastro/NewBook";
+import NewBook from "./Components/NewBook/NewBook";
 import NotFound from "./Components/Helper/NotFound";
 import Library from "./Components/Library/Library";
-
-const Routers = () => {};
+import RentHistory from "./Components/RentHistory/RentHistory";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Login />} />
+				<Route path="/*" element={<Login />} />
 				<Route path="home" element={<Home />} />
 				<Route path="cadastro" element={<NewBook />} />
 				<Route path="biblioteca" element={<Library />} />
+				<Route path="historico" element={<RentHistory />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>

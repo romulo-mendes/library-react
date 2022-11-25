@@ -7,7 +7,6 @@ const Input = ({
 	name,
 	value,
 	onChange,
-	error,
 	onBlur,
 	placeholder,
 	forstyle,
