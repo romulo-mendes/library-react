@@ -15,4 +15,11 @@ export const ButtonStyled = styled.button`
 	font-size: ${(props) => props.fontSize || "16px"};
 	color: ${(props) => props.color || "600"};
 	cursor: pointer;
+	transition: 0.2s;
+	:hover {
+		box-shadow: currentColor 1px 1px 5px 0px;
+	}
+	:disabled {
+		cursor: not-allowed;
+	}
 `;

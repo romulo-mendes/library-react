@@ -5,14 +5,10 @@ import LostPassword from "./LostPassword";
 
 const Login = () => {
 	return (
-		<div>
-			<div>
-				<Routes>
-					<Route path="/" element={<LoginForm />} />
-					<Route path="lostpassword" element={<LostPassword />} />
-				</Routes>
-			</div>
-		</div>
+		<Routes>
+			<Route path="/" element={<LoginForm />} />
+			<Route path="lostpassword" element={<LostPassword />} />
+		</Routes>
 	);
 };
 

@@ -6,6 +6,7 @@ import { ReactComponent as Close } from "../../assets/modal/Close.svg";
 import { ReactComponent as Book } from "../../assets/modal/Book.svg";
 import styled from "styled-components";
 import useForm from "../../Hooks/useForm";
+import { AnimDown } from "../Main/Main.styled";
 
 const LentModalStyled = styled.div`
 	width: 804px;
@@ -16,6 +17,7 @@ const LentModalStyled = styled.div`
 	padding: 40px;
 	display: flex;
 	flex-direction: column;
+	animation: ${AnimDown} 0.4s forwards;
 	h2 {
 		font-size: 20px;
 		color: #3e4756;
@@ -33,8 +35,7 @@ const LentForm = styled.form`
 	margin-bottom: 40px;
 `;
 
-const LentModal = (props) => {
-	const { setLentModal, bookId, setMainModal, book } = props;
+const LentModal = ({ setLentModal, bookId, onClose, book }) => {
 	const studentName = useForm();
 	const studentClass = useForm();
 	const withdrawalDate = useForm();
@@ -70,7 +71,7 @@ const LentModal = (props) => {
 		}
 	}
 	function CloseModal() {
-		setMainModal(true);
+		onClose();
 		setLentModal(false);
 	}
 	return (

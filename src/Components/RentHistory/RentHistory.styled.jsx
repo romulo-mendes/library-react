@@ -10,6 +10,7 @@ export const RentHistoryContainer = styled.div`
 
 	table {
 		width: 100%;
+		overflow-x: auto;
 		thead {
 			font-size: 16px;
 			font-weight: 600;

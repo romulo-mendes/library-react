@@ -17,17 +17,9 @@ const LibraryBooks = () => {
 	const [modal, setModal] = React.useState(false);
 	const [bookId, setBookId] = React.useState("");
 
-	const goToTop = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth",
-		});
-	};
-
 	function Modal(e) {
 		setBookId(e.currentTarget.id);
 		setModal(true);
-		goToTop();
 	}
 
 	return (

@@ -6,6 +6,8 @@ import Back from "../Main/Back";
 import LibrarySearch from "./LibrarySearch";
 import LibraryBooks from "./LibraryBooks";
 import BooksProvider from "../../Contexts/useBooks";
+import { Route, Routes } from "react-router-dom";
+import EditBook from "../EditBook/EditBook";
 
 const LibraryContainer = styled.div`
 	background-color: #fff;
@@ -21,13 +23,21 @@ const Library = () => {
 	return (
 		<MainContainer style={{ height: "100vh", overflowX: "hidden" }}>
 			<Nav />
-			<LibraryContainer>
-				<Back link="/home" back="Home" current="Biblioteca" />
-				<BooksProvider>
-					<LibrarySearch />
-					<LibraryBooks />
-				</BooksProvider>
-			</LibraryContainer>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<LibraryContainer>
+							<Back link="/home" back="Home" current="Biblioteca" />
+							<BooksProvider>
+								<LibrarySearch />
+								<LibraryBooks />
+							</BooksProvider>
+						</LibraryContainer>
+					}
+				/>
+				<Route path="/editar/:bookId" element={<EditBook />} />
+			</Routes>
 		</MainContainer>
 	);
 };

@@ -1,6 +1,23 @@
 import styled from "styled-components";
 
 export const DivInput = styled.div`
+	width: 100%;
+	position: relative;
+
+	/* label {
+		position: absolute;
+		left: 0;
+		margin: 8px;
+		background-color: #fff;
+		border-radius: 5px;
+		padding: 8px;
+		transition: 0.3s;
+	}
+	input:focus + label {
+		transform: translate(-4px, -24px);
+		font-size: 14px;
+	} */
+
 	input {
 		padding: 16px;
 		font-size: 16px;
@@ -40,7 +57,7 @@ export const DivInput = styled.div`
 		`
 			input {
 				padding: 16px;
-				width: 354px;
+				width: 100%;
 				height: 51px;
 				margin-bottom: 16px;
 				background-color: #f1f3f5;
@@ -57,6 +74,7 @@ export const DivInput = styled.div`
 		`
 		input{
 			width: 350px;
+			height: ${(props) => props.height};
 			::placeholder {
 				color: #123052;
 			}

@@ -35,3 +35,28 @@ export const RentHistory = styled.div`
 		}
 	}
 `;
+
+export const InactiveDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+	h2 {
+		color: #3e4756;
+		font-size: 20px;
+	}
+	div {
+		padding: 16px;
+		background-color: #f4f4f4;
+		h3 {
+			font-size: 16px;
+			color: #3e4756;
+			margin-bottom: 8px;
+		}
+		p {
+			font-size: 16px;
+			font-weight: 200;
+			#3e4756
+		}
+	}
+`;

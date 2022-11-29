@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AnimDown } from "../Main/Main.styled";
 
 export const ContainerRentHistoryModal = styled.div`
 	width: 1058px;
@@ -8,6 +9,7 @@ export const ContainerRentHistoryModal = styled.div`
 	padding: 40px;
 	position: relative;
 	overflow: auto;
+	animation: ${AnimDown} 0.4s forwards;
 	h2 {
 		font-size: 20px;
 		color: #3e4756;

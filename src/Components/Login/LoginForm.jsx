@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Library } from "../../assets/Logo.svg";
 import useForm from "../../Hooks/useForm";
+import { ButtonStyled } from "../Form/Button.styled";
 import Input from "../Form/Input";
 import { DivLogin, DivLoginProps } from "./LoginForm.styled";
 
@@ -59,9 +60,9 @@ const LoginForm = () => {
 					{...password}
 				/>
 				<DivLoginProps marginBottom="32" textAlign="flex-start">
-					<Link to="/lostpassword">Esqueci minha senha</Link>
+					<Link to="/">Esqueci minha senha</Link>
 				</DivLoginProps>
-				<button>ENTRAR</button>
+				<ButtonStyled>ENTRAR</ButtonStyled>
 				{error && (
 					<p style={{ color: "red", fontSize: "12px", padding: "3px" }}>
 						Usuário ou senha inválido

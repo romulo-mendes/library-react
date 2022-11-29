@@ -4,12 +4,10 @@ import { ReactComponent as Close } from "../../assets/modal/Close.svg";
 import { ReactComponent as Filter } from "../../assets/modal/Filter.svg";
 import { ContainerRentHistoryModal } from "./RentHistoryModal.styled";
 
-
-
-const RentHistoryModal = ({ rentHistory, setHistoryModal, setMainModal }) => {
+const RentHistoryModal = ({ rentHistory, setHistoryModal, onClose }) => {
 	const [filteredRent, setFilteredRent] = React.useState(rentHistory);
 	function closeModal() {
-		setMainModal(true);
+		onClose();
 		setHistoryModal(false);
 	}
 

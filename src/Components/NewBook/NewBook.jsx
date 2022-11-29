@@ -14,6 +14,9 @@ const NewbookContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: calc(100vh - 144px);
+	@media (max-width: 860px) {
+		height: 100%;
+	}
 `;
 
 const NewBook = () => {

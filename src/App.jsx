@@ -15,7 +15,7 @@ function App() {
 				<Route path="/*" element={<Login />} />
 				<Route path="home" element={<Home />} />
 				<Route path="cadastro" element={<NewBook />} />
-				<Route path="biblioteca" element={<Library />} />
+				<Route path="biblioteca/*" element={<Library />} />
 				<Route path="historico" element={<RentHistory />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>

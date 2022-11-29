@@ -10,6 +10,10 @@ export const CardStyle = styled.div`
 	border: solid 3px #f4f4f4;
 	justify-content: space-between;
 	align-items: center;
+	:hover {
+		background-color: #ffc501;
+		border: solid 3px #ffc501;
+	}
 `;
 export const Icon = styled.div`
 	height: 100%;

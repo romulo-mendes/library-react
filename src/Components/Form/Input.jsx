@@ -14,8 +14,8 @@ const Input = ({
 }) => {
 	return (
 		<DivInput type={forstyle}>
-			<label htmlFor={name}>{label}</label>
 			<input
+				className="input"
 				type={type}
 				name={name}
 				placeholder={placeholder}
@@ -23,9 +23,11 @@ const Input = ({
 				onChange={onChange}
 				value={value}
 				onBlur={onBlur}
-				forstyle={forstyle}
 				onFocus={onFocus}
 			/>
+			<label className="label" htmlFor={name}>
+				{label}
+			</label>
 		</DivInput>
 	);
 };
