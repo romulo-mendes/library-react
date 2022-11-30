@@ -30,7 +30,7 @@ const LibrarySearch = () => {
 					<Input
 						type="text"
 						name="search"
-						placeholder="Pesquisar livro..."
+						label="Pesquisar livro..."
 						forstyle="search"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}

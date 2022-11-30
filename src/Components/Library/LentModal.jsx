@@ -56,21 +56,21 @@ const LentModal = ({ setLentModal, bookId, onClose, book }) => {
 				<Input
 					type="text"
 					name="studentName"
-					placeholder="Nome do Aluno"
+					label="Nome do Aluno"
 					forstyle="lent"
 					{...studentName}
 				/>
 				<Input
 					type="text"
 					name="studentClass"
-					placeholder="Turma"
+					label="Turma"
 					forstyle="lent"
 					{...studentClass}
 				/>
 				<Input
 					type="text"
 					name="withdrawalDate"
-					placeholder="Data da Retirada"
+					label="Data da Retirada"
 					forstyle="lent"
 					onFocus={({ target }) => (target.type = "date")}
 					onBlur={({ target }) => {
@@ -81,7 +81,7 @@ const LentModal = ({ setLentModal, bookId, onClose, book }) => {
 				<Input
 					type="text"
 					name="deliveryDate"
-					placeholder="Data da Entrega"
+					label="Data da Entrega"
 					forstyle="lent"
 					onFocus={(e) => (e.target.type = "date")}
 					onBlur={({ target }) => {

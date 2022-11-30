@@ -21,6 +21,7 @@ export const DivLogin = styled.div`
 	height: 100vh;
 	background: url(${background}) no-repeat;
 	background-position: center bottom;
+	background-size: cover;
 	form {
 		display: flex;
 		flex-direction: column;
