@@ -6,11 +6,11 @@ export const RentHistoryContainer = styled.div`
 	margin: 24px;
 	min-height: 624px;
 	position: relative;
-	overflow-x: hidden;
+	overflow-x: auto;
 
 	table {
 		width: 100%;
-		overflow-x: auto;
+		white-space: nowrap;
 		thead {
 			font-size: 16px;
 			font-weight: 600;

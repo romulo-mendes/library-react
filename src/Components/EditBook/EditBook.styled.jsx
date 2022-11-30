@@ -8,5 +8,5 @@ export const EditBookContainer = styled.div`
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	height: calc(100vh - 144px);
+	min-height: 624px;
 `;

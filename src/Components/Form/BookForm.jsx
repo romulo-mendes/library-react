@@ -29,7 +29,7 @@ const BookForm = ({ bookId }) => {
 
 	if (bookId) {
 		const getBooks = async () => {
-			const response = await fetch(`http://192.168.1.65:3000/books/${bookId}`);
+			const response = await fetch(`http://localhost:3000/books/${bookId}`);
 			const json = await response.json();
 			setBook(json);
 		};
@@ -72,17 +72,17 @@ const BookForm = ({ bookId }) => {
 
 		const bookData = {
 			...book,
-			id: uuidv4(),
-			status: {
+			id: book.id || uuidv4(),
+			status: book.status || {
 				isActive: true,
 				description: "",
 			},
 			systemEntryDate: book.systemEntryDate.split("-").reverse().join("/"),
-			rentHistory: [],
+			rentHistory: book.rentHistory || [],
 		};
 		if (bookId) {
 			const editBooks = async () => {
-				await fetch(`http://192.168.1.65:3000/books/${bookId}`, {
+				await fetch(`http://localhost:3000/books/${bookId}`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
@@ -94,7 +94,7 @@ const BookForm = ({ bookId }) => {
 			backToLibrary();
 		} else {
 			const postBooks = async () => {
-				await fetch("http://192.168.1.65:3000/books", {
+				await fetch("http://localhost:3000/books", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -137,7 +137,7 @@ const BookForm = ({ bookId }) => {
 						<Input
 							type="text"
 							name="tittle"
-							placeholder="Título"
+							label="Título"
 							forstyle="books"
 							value={book.tittle}
 							onChange={(e) => handleOnChange(e)}
@@ -145,19 +145,18 @@ const BookForm = ({ bookId }) => {
 						<div className="synopsis">
 							<textarea
 								name="synopsis"
-								placeholder="Sinopse"
 								id="synopsis"
 								value={book.synopsis}
 								onChange={(e) => handleOnChange(e)}
 							></textarea>
-							{/* <label htmlFor="synopsis">Sinopse</label> */}
+							<label htmlFor="synopsis">Sinopse</label>
 						</div>
 					</DivLeft>
 					<DivRight>
 						<Input
 							type="text"
 							name="author"
-							placeholder="Autor"
+							label="Autor"
 							forstyle="books"
 							value={book.author}
 							onChange={(e) => handleOnChange(e)}
@@ -168,12 +167,13 @@ const BookForm = ({ bookId }) => {
 							value={book.genre}
 							onChange={(e) => handleOnChange(e)}
 							type="bookForm"
+							label="Gênero"
 						/>
 
 						<Input
 							type="text"
 							name="systemEntryDate"
-							placeholder="Data de entrada"
+							label="Data de entrada"
 							forstyle="books"
 							value={book.systemEntryDate}
 							onChange={(e) => handleOnChange(e)}

@@ -15,12 +15,13 @@ export const FormStyles = styled.form`
 			position: absolute;
 			left: 0;
 			margin: 8px;
-			background-color: #fff;
 			border-radius: 5px;
 			padding: 8px;
 			transition: 0.3s;
 		}
-		textarea:focus + label {
+		textarea:focus + label,
+		textarea:valid + label {
+			background-color: #fff;
 			transform: translate(-4px, -24px);
 			font-size: 14px;
 		}
@@ -32,18 +33,8 @@ export const FormStyles = styled.form`
 			height: 129px;
 			color: #133052;
 			font-size: 16px;
-			position: relative;
-			::placeholder {
-				color: #133052;
-				font-size: 16px;
-			}
 			:focus {
 				border: 2px solid #3e4756;
-			}
-		}
-		@media (max-width: 415px) {
-			input {
-				width: 100%;
 			}
 		}
 	}
@@ -89,6 +80,9 @@ export const InputContainer = styled.div`
 	gap: 24px;
 `;
 export const ImgPreview = styled.div`
+	/* @media (max-width: 1079px) {
+		margin-top: 100px;
+	} */
 	width: 172px;
 	height: 206px;
 	border: 2px dashed #ffc501;

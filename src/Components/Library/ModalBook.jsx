@@ -1,87 +1,23 @@
 import React from "react";
-import styled from "styled-components";
 import { ButtonStyled } from "../Form/Button.styled";
 import { ReactComponent as Book } from "../../assets/modal/Book.svg";
 import { ReactComponent as Close } from "../../assets/modal/Close.svg";
-import { CloseModalIcon, InactiveDiv, RentHistory } from "./ModalBook.styled";
+import {
+	ButtonsContainer,
+	CloseModalIcon,
+	ImgContainer,
+	ImgStyle,
+	InactiveDiv,
+	InfoContainer,
+	ModalBookInfo,
+	ModalBookMain,
+	ModalContainer,
+} from "./ModalBook.styled";
 import LentModal from "./LentModal";
 import RentHistoryModal from "./RentHistoryModal";
 import { useNavigate } from "react-router-dom";
 import InactivateBook from "./Modal/InactivateBook";
-import { AnimDown } from "../Main/Main.styled";
-
-const ModalContainer = styled.div`
-	width: 100vw;
-	height: calc(100% + 144px);
-	background: #343a4070;
-	display: flex;
-	justify-content: center;
-	padding-top: 55px;
-
-	position: absolute;
-	top: -120px;
-`;
-const ModalBookMain = styled.div`
-	margin-bottom: auto;
-	background: #fff;
-	min-height: 585px;
-	width: 816px;
-	padding: 70px 40px 40px 40px;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	gap: 60px;
-	position: relative;
-	animation: ${AnimDown} 0.4s forwards;
-`;
-
-const ModalBookInfo = styled.div`
-	display: grid;
-	gap: 40px;
-	grid-template-columns: 1fr 2fr;
-`;
-
-const ImgContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 32px;
-`;
-
-const ImgStyle = styled.img`
-	max-width: 272px;
-	max-height: 390px;
-`;
-
-const InfoContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	h2 {
-		text-align: center;
-		color: #3e4756;
-		font-size: 20px;
-		font-weight: 600;
-		margin-bottom: 24px;
-	}
-	h4 {
-		font-size: 16px;
-		color: #3e4756;
-		margin-bottom: 8px;
-	}
-	p {
-		color: #3e4756;
-		font-size: 16px;
-		font-weight: 200;
-		margin-bottom: 24px;
-	}
-`;
-
-const ButtonsContainer = styled.div`
-	display: flex;
-	gap: 24px;
-	margin-top: auto;
-	align-self: center;
-`;
+import RentTable from "./Modal/RentTable";
 
 const ModalBook = ({ bookId, setModal }) => {
 	const [book, setBook] = React.useState({});
@@ -99,7 +35,7 @@ const ModalBook = ({ bookId, setModal }) => {
 	const navigate = useNavigate();
 
 	const getBooks = async () => {
-		const response = await fetch(`http://192.168.1.65:3000/books/${bookId}`);
+		const response = await fetch(`http://localhost:3000/books/${bookId}`);
 		const json = await response.json();
 		setBook(json);
 		if (!json.status.isActive) setActive(json.status);
@@ -202,7 +138,7 @@ const ModalBook = ({ bookId, setModal }) => {
 		let currentDate = new Date();
 		book.rentHistory[book.rentHistory.length - 1].deliveryDate =
 			currentDate.toLocaleDateString();
-		await fetch(`http://192.168.1.65:3000/books/${bookId}`, {
+		await fetch(`http://localhost:3000/books/${bookId}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -217,7 +153,7 @@ const ModalBook = ({ bookId, setModal }) => {
 			isActive: true,
 			description: "",
 		};
-		await fetch(`http://192.168.1.65:3000/books/${bookId}`, {
+		await fetch(`http://localhost:3000/books/${bookId}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -306,29 +242,7 @@ const ModalBook = ({ bookId, setModal }) => {
 							</div>
 						</InactiveDiv>
 					)}
-					{rentHistory && active.isActive && (
-						<RentHistory>
-							<h2>Dados do aluno</h2>
-							<table>
-								<thead>
-									<tr>
-										<td>Nome do aluno</td>
-										<td>Turma</td>
-										<td>Data de retirada</td>
-										<td>Data da entrega</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>{lastRent.studentName}</td>
-										<td>{lastRent.class}</td>
-										<td>{lastRent.withdrawalDate}</td>
-										<td>{lastRent.deliveryDate}</td>
-									</tr>
-								</tbody>
-							</table>
-						</RentHistory>
-					)}
+					{rentHistory && active.isActive && <RentTable lastRent={lastRent} />}
 				</ModalBookMain>
 			)}
 			{activeModal && (

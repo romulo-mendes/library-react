@@ -15,7 +15,7 @@ const LoginForm = () => {
 
 	React.useEffect(() => {
 		const getUsers = async () => {
-			const response = await fetch("http://192.168.1.65:3000/login", {
+			const response = await fetch("http://localhost:3000/login", {
 				method: "GET",
 			});
 			const json = await response.json();

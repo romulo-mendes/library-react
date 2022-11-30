@@ -11,7 +11,7 @@ const RentHistory = () => {
 
 	React.useEffect(() => {
 		const getBooks = async () => {
-			const response = await fetch("http://192.168.1.65:3000/books", {
+			const response = await fetch("http://localhost:3000/books", {
 				method: "GET",
 			});
 			const json = await response.json();

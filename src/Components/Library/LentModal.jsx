@@ -4,36 +4,8 @@ import Input from "../Form/Input";
 import { CloseModalIcon } from "./ModalBook.styled";
 import { ReactComponent as Close } from "../../assets/modal/Close.svg";
 import { ReactComponent as Book } from "../../assets/modal/Book.svg";
-import styled from "styled-components";
 import useForm from "../../Hooks/useForm";
-import { AnimDown } from "../Main/Main.styled";
-
-const LentModalStyled = styled.div`
-	width: 804px;
-	height: 353px;
-	border: 1px solid #707070;
-	background: #fff;
-	position: relative;
-	padding: 40px;
-	display: flex;
-	flex-direction: column;
-	animation: ${AnimDown} 0.4s forwards;
-	h2 {
-		font-size: 20px;
-		color: #3e4756;
-	}
-	button {
-		align-self: flex-end;
-	}
-`;
-
-const LentForm = styled.form`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 24px;
-	margin-top: 24px;
-	margin-bottom: 40px;
-`;
+import { LentForm, LentModalStyled } from "./Modal/LentModal.styled";
 
 const LentModal = ({ setLentModal, bookId, onClose, book }) => {
 	const studentName = useForm();
@@ -42,7 +14,7 @@ const LentModal = ({ setLentModal, bookId, onClose, book }) => {
 	const deliveryDate = useForm();
 
 	const postBooks = async (book) => {
-		await fetch(`http://192.168.1.65:3000/books/${bookId}`, {
+		await fetch(`http://localhost:3000/books/${bookId}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

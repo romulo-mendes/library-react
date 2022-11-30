@@ -1,34 +1,12 @@
 import React, { createContext } from "react";
 import Input from "../Form/Input";
 import { ReactComponent as Search } from "../../assets/Search.svg";
-import styled from "styled-components";
 import { useBooks } from "../../Contexts/useBooks";
 import Select from "../Form/Select";
 import { ButtonStyled } from "../Form/Button.styled";
+import { SearchContainer, SearchStyled } from "./LibrarySearch.styled";
 
 export const SearchContext = createContext();
-
-const SearchContainer = styled.div`
-	display: flex;
-	gap: 32px;
-	margin: 98px 0 76px 0;
-`;
-
-const SearchStyled = styled.form`
-	display: flex;
-	padding: 8px 8px 8px 16px;
-	width: 666px;
-	height: 54px;
-	border: 1px solid #adb5bd;
-	border-radius: 5px;
-	justify-content: space-between;
-	align-items: center;
-	div {
-		display: flex;
-		width: 100%;
-		align-items: center;
-	}
-`;
 
 const LibrarySearch = () => {
 	const { search, setSearch } = useBooks();

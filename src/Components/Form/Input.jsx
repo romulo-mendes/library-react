@@ -24,6 +24,7 @@ const Input = ({
 				value={value}
 				onBlur={onBlur}
 				onFocus={onFocus}
+				required
 			/>
 			<label className="label" htmlFor={name}>
 				{label}

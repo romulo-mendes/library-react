@@ -11,6 +11,9 @@ const SelectContainer = styled.div`
 		:focus {
 			outline: 2px solid #3e4756;
 		}
+		@media (max-width: 355px) {
+			width: 100%;
+		}
 	}
 	${(props) =>
 		props.type === "bookForm" &&
@@ -18,18 +21,18 @@ const SelectContainer = styled.div`
 			select {
 				width: 100%;
 				border: 1px solid #133052;
-				font-size: 16px;
 				color: #133052;
+
 			}
 		`}
 `;
 
-const Select = ({ value, onChange, options, type, name }) => {
+const Select = ({ value, onChange, options, type, name, label = "Selecione" }) => {
 	return (
 		<SelectContainer type={type}>
 			<select onChange={onChange} value={value} name={name}>
 				<option value="" disabled>
-					{type === "bookForm" ? "Gênero" : "Selecione"}
+					{label}
 				</option>
 				{options.map((option) => (
 					<option key={option.value} value={option.value}>

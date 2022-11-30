@@ -2,13 +2,15 @@ import styled from "styled-components";
 import { AnimDown } from "../Main/Main.styled";
 
 export const ContainerRentHistoryModal = styled.div`
-	width: 1058px;
+	width: 100%;
+	max-width: 1058px;
 	height: 446px;
 	border: 1px solid #707070;
 	background-color: #fff;
 	padding: 40px;
+	overflow-x: auto;
 	position: relative;
-	overflow: auto;
+
 	animation: ${AnimDown} 0.4s forwards;
 	h2 {
 		font-size: 20px;
@@ -17,7 +19,9 @@ export const ContainerRentHistoryModal = styled.div`
 		margin-bottom: 30px;
 	}
 	table {
-		width: 100%;
+		min-width: 978px;
+
+		white-space: nowrap;
 		thead {
 			font-size: 16px;
 			font-weight: 600;
