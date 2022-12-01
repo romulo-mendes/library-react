@@ -7,17 +7,16 @@ import { ButtonStyled } from "../Form/Button.styled";
 import { SearchContainer, SearchStyled } from "./LibrarySearch.styled";
 
 export const SearchContext = createContext();
+const options = [
+	{ text: "Titulo", value: "tittle" },
+	{ text: "Gênero", value: "genre" },
+	{ text: "Autor", value: "author" },
+	{ text: "Data de entrada", value: "systemEntryDate" },
+];
 
 const LibrarySearch = () => {
-	const { search, setSearch } = useBooks();
-	const { category, setCategory } = useBooks();
+	const { search, setSearch, category, setCategory } = useBooks();
 
-	const options = [
-		{ text: "Titulo", value: "tittle" },
-		{ text: "Gênero", value: "genre" },
-		{ text: "Autor", value: "author" },
-		{ text: "Data de entrada", value: "systemEntryDate" },
-	];
 	return (
 		<SearchContainer>
 			<SearchStyled
@@ -30,7 +29,7 @@ const LibrarySearch = () => {
 					<Input
 						type="text"
 						name="search"
-						label="Pesquisar livro..."
+						placeholder="Pesquisar livro..."
 						forstyle="search"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}

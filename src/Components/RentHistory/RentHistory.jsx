@@ -15,30 +15,30 @@ const RentHistory = () => {
 				method: "GET",
 			});
 			const json = await response.json();
-			setBooks(json.filter((book) => book.rentHistory.length > 0));
-			setFilteredBook(json.filter((book) => book.rentHistory.length > 0));
+			const filterData = json.filter((book) => book.rentHistory.length > 0);
+			setBooks(filterData);
+			setFilteredBook(filterData);
 		};
 		getBooks().catch(console.error);
 	}, []);
 	function filterInput({ target }) {
 		if (target.name == "tittle") {
-			setFilteredBook(
+			return setFilteredBook(
 				books.filter((book) =>
 					book.tittle.toLowerCase().includes(target.value.toLowerCase())
 				)
 			);
-		} else {
-			setFilteredBook(
-				books.map((book) => {
-					const rentHistory = book.rentHistory.filter((rent) => {
-						return rent[target.name]
-							.toLowerCase()
-							.includes(target.value.toLowerCase());
-					});
-					return { ...book, rentHistory };
-				})
-			);
 		}
+		setFilteredBook(
+			books.map((book) => {
+				const rentHistory = book.rentHistory.filter((rent) => {
+					return rent[target.name]
+						.toLowerCase()
+						.includes(target.value.toLowerCase());
+				});
+				return { ...book, rentHistory };
+			})
+		);
 	}
 	return (
 		<MainContainer style={{ height: "100vh", overflowX: "hidden" }}>
@@ -89,20 +89,25 @@ const RentHistory = () => {
 							</td>
 						</tr>
 
-						{filteredBook &&
-							filteredBook.map((book) => {
-								return book.rentHistory.map((rent, index) => {
-									return (
-										<tr key={index}>
-											<td>{rent.studentName}</td>
-											<td>{rent.class}</td>
-											<td>{book.tittle}</td>
-											<td>{rent.withdrawalDate}</td>
-											<td>{rent.deliveryDate}</td>
-										</tr>
-									);
-								});
-							})}
+						{filteredBook.map(({ rentHistory, tittle }) =>
+							rentHistory.map((rent, index) => {
+								const {
+									studentName,
+									class: clazz,
+									withdrawalDate,
+									deliveryDate,
+								} = rent;
+								return (
+									<tr key={index}>
+										<td>{studentName}</td>
+										<td>{clazz}</td>
+										<td>{tittle}</td>
+										<td>{withdrawalDate}</td>
+										<td>{deliveryDate}</td>
+									</tr>
+								);
+							})
+						)}
 					</tbody>
 				</table>
 			</RentHistoryContainer>

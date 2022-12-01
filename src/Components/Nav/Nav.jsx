@@ -8,32 +8,31 @@ import { LogoutBox, NavStyles, UserButton } from "./Nav.styled";
 const Nav = () => {
 	const navigate = useNavigate();
 	const [user, setUser] = useState();
-	const [menuLogout, setMenuLogout] = useState(false);
+	const [showLogout, setShowLogout] = useState(false);
 
 	React.useEffect(() => {
-		const email = window.localStorage.getItem("email");
-		if (!email) {
-			navigate("/");
-		} else setUser(email);
+		const email = localStorage.getItem("email");
+		if (!email) return navigate("/");
+		setUser(email);
 	}, []);
 
-	function MenuLogout() {
-		setMenuLogout(!menuLogout);
+	function menuLogout() {
+		setShowLogout(!showLogout);
 	}
-	function Logout() {
-		window.localStorage.removeItem("email");
+	function logout() {
+		localStorage.removeItem("email");
 		navigate("/");
 	}
 
 	return (
 		<NavStyles>
 			<Library />
-			<UserButton onClick={MenuLogout}>
+			<UserButton onClick={menuLogout}>
 				<People />
 				<p>{user}</p>
 				<Arrow />
-				{menuLogout && (
-					<LogoutBox onClick={Logout}>
+				{showLogout && (
+					<LogoutBox onClick={logout}>
 						<p>Sair</p>
 					</LogoutBox>
 				)}

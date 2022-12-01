@@ -23,9 +23,9 @@ const CardContainer = styled.div`
 	}
 `;
 
-const LibraryCard = ({ img, id, tittle, onClick }) => {
+const LibraryCard = ({ img, tittle, onClick }) => {
 	return (
-		<CardContainer id={id} onClick={onClick}>
+		<CardContainer onClick={onClick}>
 			<img src={img} alt={`capa do livro ${tittle}`} />
 			<h6>{tittle}</h6>
 		</CardContainer>

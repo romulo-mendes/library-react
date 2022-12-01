@@ -26,15 +26,15 @@ const LoginForm = () => {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		setError(false);
-		data.map((user) => {
-			if (user.email === email.value && user.password === password.value) {
-				window.localStorage.setItem("email", email.value);
-				navigate("/home");
-			} else {
-				setError(true);
-			}
-		});
+
+		const result = data.filter(
+			(user) => user.email === email.value && user.password === password.value
+		);
+		if (result.length > 0) {
+			localStorage.setItem("email", email.value);
+			return navigate("/home");
+		}
+		return setError(true);
 	}
 
 	return (

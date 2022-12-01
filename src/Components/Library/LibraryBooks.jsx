@@ -17,8 +17,8 @@ const LibraryBooks = () => {
 	const [modal, setModal] = React.useState(false);
 	const [bookId, setBookId] = React.useState("");
 
-	function Modal(e) {
-		setBookId(e.currentTarget.id);
+	function showModalBook(id) {
+		setBookId(id);
 		setModal(true);
 	}
 
@@ -30,9 +30,8 @@ const LibraryBooks = () => {
 					<LibraryCard
 						key={book.id}
 						img={book.image}
-						id={book.id}
 						tittle={book.tittle}
-						onClick={Modal}
+						onClick={() => showModalBook(book.id)}
 					/>
 				);
 			})}

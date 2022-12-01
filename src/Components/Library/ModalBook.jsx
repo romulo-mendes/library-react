@@ -18,13 +18,13 @@ import RentHistoryModal from "./RentHistoryModal";
 import { useNavigate } from "react-router-dom";
 import InactivateBook from "./Modal/InactivateBook";
 import RentTable from "./Modal/RentTable";
+import useStateBook from "../../Hooks/useStateBook";
 
 const ModalBook = ({ bookId, setModal }) => {
-	const [book, setBook] = React.useState({});
+	const [book, setBook] = useStateBook();
 	const [mainModal, setMainModal] = React.useState(true);
 	const [lentModal, setLentModal] = React.useState(false);
 	const [rentHistory, setRentHistory] = React.useState();
-	const [lastRent, setLastRent] = React.useState([]);
 	const [historyModal, setHistoryModal] = React.useState(false);
 	const [active, setActive] = React.useState({
 		isActive: true,
@@ -34,26 +34,29 @@ const ModalBook = ({ bookId, setModal }) => {
 	const [activeModal, setActiveModal] = React.useState(false);
 	const navigate = useNavigate();
 
+	const lastRent = book.rentHistory[book.rentHistory.length - 1];
+
 	const getBooks = async () => {
 		const response = await fetch(`http://localhost:3000/books/${bookId}`);
 		const json = await response.json();
 		setBook(json);
 		if (!json.status.isActive) setActive(json.status);
 		if (json.rentHistory.length > 0) {
-			isLent(json.rentHistory);
-			let rentHistory = json.rentHistory;
-			setLastRent(rentHistory[rentHistory.length - 1]);
+			setRentHistory(isLent(json.rentHistory));
 		}
 	};
 
-	function lentButton() {
+	function LentButton() {
+		const communStyle = {
+			gap: "12px",
+			fontWeight: "600",
+			width: "100%",
+			border: "1px solid #adb5bd",
+		};
 		if (!active.isActive) {
 			return (
 				<ButtonStyled
-					gap="12px"
-					fontWeight="600"
-					width="100%"
-					border="1px solid #adb5bd"
+					{...communStyle}
 					background="#FFC50190"
 					onClick={lentBook}
 					disabled
@@ -64,32 +67,18 @@ const ModalBook = ({ bookId, setModal }) => {
 			);
 		} else if (rentHistory) {
 			return (
-				<ButtonStyled
-					gap="12px"
-					fontWeight="600"
-					width="100%"
-					border="1px solid #adb5bd"
-					background="#f4f4f4"
-					onClick={returnBook}
-				>
+				<ButtonStyled {...communStyle} background="#f4f4f4" onClick={returnBook}>
 					<Book />
 					Devolver
 				</ButtonStyled>
 			);
-		} else {
-			return (
-				<ButtonStyled
-					gap="12px"
-					fontWeight="600"
-					width="100%"
-					border="1px solid #adb5bd"
-					onClick={lentBook}
-				>
-					<Book />
-					Emprestar
-				</ButtonStyled>
-			);
 		}
+		return (
+			<ButtonStyled {...communStyle} onClick={lentBook}>
+				<Book />
+				Emprestar
+			</ButtonStyled>
+		);
 	}
 
 	React.useEffect(() => {
@@ -99,11 +88,8 @@ const ModalBook = ({ bookId, setModal }) => {
 	function isLent(lent) {
 		let lastRentDate = lent[lent.length - 1].deliveryDate;
 		const lentDate = new Date(lastRentDate.split("/").reverse().join("-"));
-		if (lentDate > new Date()) {
-			setRentHistory(true);
-		} else {
-			setRentHistory(false);
-		}
+		if (lentDate > new Date()) return true;
+		return false;
 	}
 
 	function onCloseSecModal() {
@@ -178,7 +164,7 @@ const ModalBook = ({ bookId, setModal }) => {
 					<ModalBookInfo>
 						<ImgContainer>
 							<ImgStyle src={book.image} alt={`capa do livro ${book.tittle}`} />
-							{lentButton()}
+							<LentButton />
 						</ImgContainer>
 						<InfoContainer>
 							<button autoFocus style={{ border: "0" }}></button>

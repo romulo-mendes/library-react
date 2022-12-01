@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Input from "./Input";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import {
 	DivButtons,
@@ -14,16 +14,20 @@ import {
 } from "./BookForm.styled";
 import Select from "./Select";
 import { ButtonStyled } from "./Button.styled";
+import useStateBook from "../../Hooks/useStateBook";
 
-const BookForm = ({ bookId }) => {
-	const [book, setBook] = useState({
-		tittle: "",
-		author: "",
-		synopsis: "",
-		systemEntryDate: "",
-		image: "",
-		genre: "",
-	});
+const options = [
+	{ text: "Fantasia", value: "Fantasia" },
+	{ text: "Ação e Aventura", value: "Ação e Aventura" },
+	{ text: "Horror", value: "Horror" },
+	{ text: "Romance", value: "Romance" },
+	{ text: "Ficção Cientifica", value: "Ficção Cientifica" },
+	{ text: "Economia", value: "Economia" },
+];
+
+const BookForm = () => {
+	const { bookId } = useParams();
+	const [book, setBook] = useStateBook();
 
 	const navigate = useNavigate();
 
@@ -37,15 +41,6 @@ const BookForm = ({ bookId }) => {
 			getBooks();
 		}, []);
 	}
-
-	const options = [
-		{ text: "Fantasia", value: "Fantasia" },
-		{ text: "Ação e Aventura", value: "Ação e Aventura" },
-		{ text: "Horror", value: "Horror" },
-		{ text: "Romance", value: "Romance" },
-		{ text: "Ficção Cientifica", value: "Ficção Cientifica" },
-		{ text: "Economia", value: "Economia" },
-	];
 
 	function ImgChange({ target }) {
 		const getImg = target.files;
@@ -62,7 +57,6 @@ const BookForm = ({ bookId }) => {
 
 	function handleOnChange(e) {
 		const value = e.target.value;
-		console.log(value);
 		const name = e.target.name;
 		setBook({ ...book, [name]: value });
 	}
@@ -80,6 +74,10 @@ const BookForm = ({ bookId }) => {
 			systemEntryDate: book.systemEntryDate.split("-").reverse().join("/"),
 			rentHistory: book.rentHistory || [],
 		};
+		handleOnSave(bookData);
+	}
+
+	function handleOnSave(bookData) {
 		if (bookId) {
 			const editBooks = async () => {
 				await fetch(`http://localhost:3000/books/${bookId}`, {
@@ -91,20 +89,19 @@ const BookForm = ({ bookId }) => {
 				});
 			};
 			editBooks().catch(console.error);
-			backToLibrary();
-		} else {
-			const postBooks = async () => {
-				await fetch("http://localhost:3000/books", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(bookData),
-				});
-			};
-			postBooks().catch(console.error);
-			backToHome();
+			return backToLibrary();
 		}
+		const postBooks = async () => {
+			await fetch("http://localhost:3000/books", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(bookData),
+			});
+		};
+		postBooks().catch(console.error);
+		return backToHome();
 	}
 
 	function backToHome() {
@@ -117,20 +114,10 @@ const BookForm = ({ bookId }) => {
 		<FormStyles onSubmit={BookSubmit}>
 			<DivMainInputs>
 				<ImgPreview>
-					{book.image ? (
-						<>
-							<img src={book.image} />
-							<input type="file" name="img" id="img" onChange={ImgChange} />
-							<Plus />
-							<p>Capa</p>
-						</>
-					) : (
-						<>
-							<input type="file" name="img" id="img" onChange={ImgChange} />
-							<Plus />
-							<p>Capa</p>
-						</>
-					)}
+					{book.image && <img src={book.image} />}
+					<input type="file" name="img" id="img" onChange={ImgChange} />
+					<Plus />
+					<p>Capa</p>
 				</ImgPreview>
 				<InputContainer>
 					<DivLeft>
