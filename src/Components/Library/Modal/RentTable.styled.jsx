@@ -2,8 +2,14 @@ import styled from "styled-components";
 
 export const RentHistory = styled.div`
 	width: 100%;
-	@media (max-width: 420px) {
+	@media (max-width: 450px) {
 		width: 300px;
+		table {
+			width: auto;
+			display: block;
+			overflow-x: auto;
+			max-width: fit-content;
+		}
 	}
 
 	h2 {
@@ -12,9 +18,7 @@ export const RentHistory = styled.div`
 		margin-bottom: 16px;
 	}
 	table {
-		display: block;
-		overflow-x: auto;
-		max-width: fit-content;
+		width: 100%;
 		background: #f4f4f4;
 		border-radius: 5px;
 		padding: 16px;
